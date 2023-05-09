@@ -1,0 +1,12 @@
+body {
+	background-color: GhostWhite;
+	color: DarkSlateGray;
+	font-family: 'Open Sans';
+	white-space: pre-wrap;
+}
+h1 {
+	font-size: 34px;
+}
+p {
+	font-size: 17px;
+}

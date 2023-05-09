@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 body {
 	background-color: GhostWhite;
-	color: DarkSlateGray;
+	color: #4A4A4A;
 	font-family: "Open Sans", sans-serif;
 	font-size: 17px;
 }
@@ -12,4 +12,21 @@ pre {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: normal;
+}
+
+/* Style the navbar */
+nav {
+  overflow: hidden;
+  background-color: #4A4A4A;
+}
+
+/* Navbar links */
+nav a {
+  float: left;
+  display: block;
+  color: GhostWhite;
+  text-align: center;
+  padding: 20px;
+  text-decoration: none;
+  font-size: 17px;
 }

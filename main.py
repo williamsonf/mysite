@@ -12,18 +12,35 @@ from flask import Flask, render_template, abort, url_for
 
 app = Flask(__name__)
 
+def get_navlinks() -> str:
+    linklist = ['home', 'stories']
+    url_list = {}
+    for link in linklist:
+        url = url_for(link)
+        url_list[link] = (url, link.title())
+    url_list['github'] = ('https://github.com/williamsonf', 'Github')
+    linklist.append('github')
+    
+    result = f""
+    for link in linklist:
+        result += f"<a href='{url_list[link][0]}'>{url_list[link][1]}</a>"
+        
+    return result
+
 @app.route('/')
-def homepage():
+def home() -> render_template:
     try:
         with open('static/content/welcome.txt', 'r') as f:
             body = f.read()
-        return render_template('main.html', content = body)
+            
+        navlinks = get_navlinks()
+        return render_template('main.html', content= body, navlink= navlinks)
     except Exception as e:
         logging.critical(traceback.format_exc())
         abort(404)
 
 @app.route('/stories')
-def story_toc():
+def stories() -> render_template:
     '''
     stories_manifest.json should always contain the following fields:
     The title of the story, serving as a Key (ie. 'Alistair Finch: Wizard for Hire')
@@ -67,14 +84,15 @@ def story_toc():
                 
             #closing the list
             parsed_toc += f'</ol>'
-        
-        return render_template('main.html', content=parsed_toc)
+            
+        navlinks = get_navlinks()    
+        return render_template('main.html', content= parsed_toc, navlink= navlinks)
     except Exception as e:
         logging.critical(traceback.format_exc())
         abort(404)
 
 @app.route('/stories/<story>')
-def story(story):
+def story(story: str) -> render_template:
     try:
         with open('stories/stories_manifest.json', 'r') as f:
             manifest = json.load(f)
@@ -90,8 +108,9 @@ def story(story):
         content = f""
         with open(f'stories/{story}', 'r') as f:
             content = f.read()
-            
-        return render_template('story.html', title=title, preface=preface, content=content)
+        
+        navlinks = get_navlinks()    
+        return render_template('story.html', title=title, preface=preface, content=content, navlink= navlinks)
     except Exception as e:
         logging.critical(traceback.format_exc())
         abort(404)
