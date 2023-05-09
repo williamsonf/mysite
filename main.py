@@ -9,6 +9,7 @@ logging.basicConfig(filename="logs/" + str(datetime.date.today()) + ".log", enco
 #logging.basicConfig(level=logging.DEBUG, format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
 import json, traceback
 from flask import Flask, render_template, abort, url_for
+from waitress import serve
 
 app = Flask(__name__)
 _AUTHOR = "Fred Williamson"
@@ -123,4 +124,5 @@ def story(story: str) -> render_template:
         abort(404)
 
 if __name__ == '__main__':
-    app.run()
+    #app.run()
+    serve(app, host='0.0.0.0', port=5000, url_scheme='https')
