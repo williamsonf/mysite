@@ -1,0 +1,7 @@
+This is a standard welcome message which will appear on the homepage.
+We are
+	employing
+	
+			linebreaks and
+				indentations to see if our css works.
+<h2>Title</h2><ol><li>We are also</li><li>employing lists</li><li>to make sure html is working</li></ol>
