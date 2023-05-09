@@ -11,6 +11,7 @@ import json, traceback
 from flask import Flask, render_template, abort, url_for
 
 app = Flask(__name__)
+_AUTHOR = "Fred Williamson"
 
 def get_navlinks() -> str:
     linklist = ['home', 'stories']
@@ -104,7 +105,7 @@ def story(story: str) -> render_template:
             manifest = json.load(f)
         for item in manifest.keys():
             if manifest[item]['file'] == story:
-                title = item
+                title = f"<h1>{item}</h1>by {_AUTHOR}"
                 try:
                     preface = manifest['preface']
                 except:
