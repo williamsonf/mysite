@@ -68,7 +68,6 @@ def story_toc():
             #closing the list
             parsed_toc += f'</ol>'
         
-        print(parsed_toc)
         return render_template('main.html', content=parsed_toc)
     except Exception as e:
         logging.critical(traceback.format_exc())

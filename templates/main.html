@@ -1,2 +1,9 @@
 <!DOCTYPE html>
-<div style='white-space: pre-wrap;'>{{ content|safe }}</div>
+<head>
+  <title>Fred Williamson</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<nav></nav>
+<header><h1>Welcome to my webpage!</h1></header>
+<body><pre>{{ content|safe }}</pre></body>
+<footer></footer>

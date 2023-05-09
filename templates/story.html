@@ -1,1 +1,9 @@
 <!DOCTYPE html>
+<head>
+  <title>Fred Williamson</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<nav></nav>
+<header><h1>{{ title }}</h1><header>
+<body><pre>{% if preface %}{{ preface }}<hr>{{ content }}{% else %}{{ content }}{% endif %}</pre></body>
+<footer></footer>
