@@ -58,18 +58,19 @@ def story_toc():
             #now we are going to sort our stories alphabetically
             sorted_list = sorted(toc[form].keys())
             #now, we'll start the list:
-            parsed_toc += f'<h2>{form.title()}{"s" if form in ["novella", "novelette"] else " Fiction"}</h2>\n<ol>\n'
+            parsed_toc += f'<h2>{form.title()}{"s" if form in ["novella", "novelette"] else " Fiction"}</h2><ol>'
             
             #now adding stories
             for story in sorted_list:
                 story_url = url_for('story', story=toc[form][story])
-                parsed_toc += f'  <li><a href=\'{story_url}\'>{story}</a></li>\n'
+                parsed_toc += f'<li><a href=\'{story_url}\'>{story}</a></li>'
                 
             #closing the list
-            parsed_toc += f'</ol>\n'
+            parsed_toc += f'</ol>'
         
         return render_template('main.html', body=parsed_toc)
     except Exception as e:
+        print(e)
         logging.critical(e)
         abort(404)
 
