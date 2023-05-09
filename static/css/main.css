@@ -43,3 +43,7 @@ footer {
 	text-align: center;
 	font-size: 75%;
 }
+
+footer a {
+	color: AntiqueWhite;
+}
