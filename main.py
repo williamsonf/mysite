@@ -27,14 +27,21 @@ def get_navlinks() -> str:
         
     return result
 
+def get_header() -> str:
+    with open('static/content/header.txt', 'r') as f:
+        return f.read()
+    
+def get_footer() -> str:
+    with open('static/content/footer.txt', 'r') as f:
+        return f.read()
+
 @app.route('/')
 def home() -> render_template:
     try:
         with open('static/content/welcome.txt', 'r') as f:
             body = f.read()
             
-        navlinks = get_navlinks()
-        return render_template('main.html', content= body, navlink= navlinks)
+        return render_template('main.html', content= body, navlink= get_navlinks(), headertext= get_header(), footertext= get_footer())
     except Exception as e:
         logging.critical(traceback.format_exc())
         abort(404)
@@ -49,7 +56,7 @@ def stories() -> render_template:
         form : str
             (novella, novelette, short, flash)
         preface : str
-            a string which may act as a preface for the story, probably just information
+            filepath for a .txt containing preface information, probably just information
             about when the story was published and maybe a link to a storepage for an anthology or something
     '''
     try:
@@ -85,8 +92,7 @@ def stories() -> render_template:
             #closing the list
             parsed_toc += f'</ol>'
             
-        navlinks = get_navlinks()    
-        return render_template('main.html', content= parsed_toc, navlink= navlinks)
+        return render_template('main.html', content= parsed_toc, navlink= get_navlinks(), headertext= get_header(), footertext= get_footer())
     except Exception as e:
         logging.critical(traceback.format_exc())
         abort(404)
@@ -109,8 +115,7 @@ def story(story: str) -> render_template:
         with open(f'stories/{story}', 'r') as f:
             content = f.read()
         
-        navlinks = get_navlinks()    
-        return render_template('story.html', title=title, preface=preface, content=content, navlink= navlinks)
+        return render_template('story.html', title=title, preface=preface, content=content, navlink= get_navlinks(), headertext= get_header(), footertext= get_footer())
     except Exception as e:
         logging.critical(traceback.format_exc())
         abort(404)

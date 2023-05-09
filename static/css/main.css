@@ -3,7 +3,8 @@ body {
 	background-color: GhostWhite;
 	color: #4A4A4A;
 	font-family: "Open Sans", sans-serif;
-	font-size: 17px;
+	font-size: 16px;
+	text-align: left;
 }
 pre {
   overflow-x: auto;
@@ -28,5 +29,17 @@ nav a {
   text-align: center;
   padding: 20px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 16px;
+}
+
+ol {
+	list-style-type: none;
+}
+
+footer {
+	overflow: hidden;
+	background-color: #4A4A4A;
+	color: GhostWhite;
+	text-align: center;
+	font-size: 75%;
 }
