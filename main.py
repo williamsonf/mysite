@@ -5,13 +5,14 @@ Created on May 9, 2023
 '''
 import logging, datetime
 log_format=f'[%(asctime)s] [%(levelname)-8s] %(message)s'
-logging.basicConfig(filename="logs/" + str(datetime.date.today()) + ".log", encoding='utf-8', level=logging.INFO, format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
+logging.basicConfig(filename="logs/" + str(datetime.date.today()) + ".log", encoding='utf-8', level=logging.WARNING, format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
 #logging.basicConfig(level=logging.DEBUG, format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
 import json, traceback
 from flask import Flask, render_template, abort, url_for
 
 app = Flask(__name__)
 _AUTHOR = "Fred Williamson"
+_GITHUB = "https://github.com/williamsonf"
 
 def get_navlinks() -> str:
     linklist = ['home', 'stories']
@@ -19,7 +20,7 @@ def get_navlinks() -> str:
     for link in linklist:
         url = url_for(link)
         url_list[link] = (url, link.title())
-    url_list['github'] = ('https://github.com/williamsonf', 'Github')
+    url_list['github'] = (_GITHUB, 'Github')
     linklist.append('github')
     
     result = f""
