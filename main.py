@@ -7,7 +7,7 @@ import logging, datetime
 log_format=f'[%(asctime)s] [%(levelname)-8s] %(message)s'
 #logging.basicConfig(filename="logs/" + str(datetime.date.today()) + ".log", encoding='utf-8', level=logging.INFO, format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
 logging.basicConfig(level=logging.DEBUG, format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
-import json
+import json, traceback
 from flask import Flask, render_template, abort, url_for
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ def homepage():
             body = f.read()
         return render_template('main.html', content = body)
     except Exception as e:
-        logging.critical(e)
+        logging.critical(traceback.format_exc())
         abort(404)
 
 @app.route('/stories')
@@ -48,10 +48,10 @@ def story_toc():
         
         #we start by just grabbing the information we need from the manifest and properly sorting it
         for item in manifest.keys():
-            form = item['form']
-            toc[form] = {item : item['file']}
+            form = manifest[item]['form']
+            toc[form] = {item : manifest[item]['file']}
             
-        for form in ('novella', 'novelette', 'short', 'flash'):
+        for form in ['novella', 'novelette', 'short', 'flash']:
             #if there are no stories of this type, we'll just skip it
             if len(toc[form].keys()) <= 0:
                 continue
@@ -68,10 +68,10 @@ def story_toc():
             #closing the list
             parsed_toc += f'</ol>'
         
-        return render_template('main.html', body=parsed_toc)
+        print(parsed_toc)
+        return render_template('main.html', content=parsed_toc)
     except Exception as e:
-        print(e)
-        logging.critical(e)
+        logging.critical(traceback.format_exc())
         abort(404)
 
 @app.route('/stories/<story>')
@@ -80,7 +80,7 @@ def story(story):
         with open('stories/stories_manifest.json', 'r') as f:
             manifest = json.load(f)
         for item in manifest.keys():
-            if item['file'] == story:
+            if manifest[item]['file'] == story:
                 title = item
                 try:
                     preface = manifest['preface']
@@ -88,12 +88,13 @@ def story(story):
                     preface = None
                 break
         
+        content = f""
         with open(f'stories/{story}', 'r') as f:
             content = f.read()
             
         return render_template('story.html', title=title, preface=preface, content=content)
     except Exception as e:
-        logging.critical(e)
+        logging.critical(traceback.format_exc())
         abort(404)
 
 if __name__ == '__main__':
