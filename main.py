@@ -56,7 +56,7 @@ def stories() -> render_template:
         form : str
             (novella, novelette, short, flash)
         preface : str
-            filepath for a .txt containing preface information, probably just information
+            a string which may act as a preface for the story, probably just information
             about when the story was published and maybe a link to a storepage for an anthology or something
     '''
     try:
