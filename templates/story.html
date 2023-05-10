@@ -5,5 +5,5 @@
 </head>
 <header>{{ headertext|safe }}<header>
 <nav>{{ navlink|safe }}</nav>
-<body><center>{{ title|safe }}</center><pre>{% if preface %}{{ preface }}<hr>{{ content }}{% else %}{{ content }}{% endif %}</pre></body>
+<body><center>{{ title|safe }}</center><pre>{% if preface %}{{ preface|safe }}<hr>{{ content|safe }}{% else %}{{ content|safe }}{% endif %}</pre></body>
 <footer>{{ footertext|safe }}</footer>
