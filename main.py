@@ -109,7 +109,7 @@ def story(story: str) -> render_template:
             if manifest[item]['file'] == story:
                 title = f"<h1>{item}</h1>by {_AUTHOR}"
                 try:
-                    preface = manifest['preface']
+                    preface = manifest[item]['preface']
                 except:
                     preface = None
                 break
