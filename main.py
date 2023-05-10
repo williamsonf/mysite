@@ -69,7 +69,8 @@ def stories() -> render_template:
         toc = {'novella' : {},
                'novelette' : {},
                'short' : {},
-               'flash' : {}}
+               'flash' : {},
+               'poetry' : {}}
         
         parsed_toc = f''
         
@@ -78,7 +79,7 @@ def stories() -> render_template:
             form = manifest[item]['form']
             toc[form] = {item : manifest[item]['file']}
             
-        for form in ['novella', 'novelette', 'short', 'flash']:
+        for form in ['novella', 'novelette', 'short', 'flash', 'poetry']:
             #if there are no stories of this type, we'll just skip it
             if len(toc[form].keys()) <= 0:
                 continue
