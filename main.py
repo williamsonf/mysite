@@ -63,7 +63,7 @@ def stories() -> render_template:
             about when the story was published and maybe a link to a storepage for an anthology or something
     '''
     try:
-        with open('stories/stories_manifest.json', 'r') as f:
+        with open('stories/stories_manifest.json', 'rb') as f:
             manifest = json.load(f)
         
         toc = {'novella' : {},
@@ -124,5 +124,5 @@ def story(story: str) -> render_template:
         abort(404)
 
 if __name__ == '__main__':
-    #app.run()
-    serve(app, host='0.0.0.0', port=5000, url_scheme='https')
+    #app.run(host='0.0.0.0')
+    serve(app, host='0.0.0.0', port=8080)
