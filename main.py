@@ -86,7 +86,12 @@ def stories() -> render_template:
             #now we are going to sort our stories alphabetically
             sorted_list = sorted(toc[form].keys())
             #now, we'll start the list:
-            parsed_toc += f'<h2>{form.title()}{"s" if form in ["novella", "novelette"] else " Fiction"}</h2><ol>'
+            plural = ""
+            if form in ['novella', 'novelette']:
+                plural = "s"
+            elif form in ["short", "flash"]:
+                plural = " Fiction"
+            parsed_toc += f'<h2>{form.title()}{plural}</h2><ol>'
             
             #now adding stories
             for story in sorted_list:
