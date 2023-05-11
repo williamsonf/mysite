@@ -31,17 +31,17 @@ def get_navlinks() -> str:
     return result
 
 def get_header() -> str:
-    with open('static/content/header.txt', 'r') as f:
+    with open('static/content/header.txt', 'r', encoding="utf8") as f:
         return f.read()
     
 def get_footer() -> str:
-    with open('static/content/footer.txt', 'r') as f:
+    with open('static/content/footer.txt', 'r', encoding="utf8") as f:
         return f.read()
 
 @app.route('/')
 def home() -> render_template:
     try:
-        with open('static/content/welcome.txt', 'r') as f:
+        with open('static/content/welcome.txt', 'r', encoding="utf8") as f:
             body = f.read()
             
         return render_template('main.html', content= body, navlink= get_navlinks(), headertext= get_header(), footertext= get_footer())
@@ -63,7 +63,7 @@ def stories() -> render_template:
             about when the story was published and maybe a link to a storepage for an anthology or something
     '''
     try:
-        with open('stories/stories_manifest.json', 'rb') as f:
+        with open('stories/stories_manifest.json', 'r', encoding="utf8") as f:
             manifest = json.load(f)
         
         toc = {'novella' : {},
@@ -77,7 +77,7 @@ def stories() -> render_template:
         #we start by just grabbing the information we need from the manifest and properly sorting it
         for item in manifest.keys():
             form = manifest[item]['form']
-            toc[form] = {item : manifest[item]['file']}
+            toc[form][item] = manifest[item]['file']
             
         for form in ['novella', 'novelette', 'short', 'flash', 'poetry']:
             #if there are no stories of this type, we'll just skip it
@@ -121,7 +121,7 @@ def story(story: str) -> render_template:
                 break
         
         content = f""
-        with open(f'stories/{story}', 'r') as f:
+        with open(f'stories/{story}', 'r', encoding="utf8") as f:
             content = f.read()
         
         return render_template('story.html', title=title, preface=preface, content=content, navlink= get_navlinks(), headertext= get_header(), footertext= get_footer())
